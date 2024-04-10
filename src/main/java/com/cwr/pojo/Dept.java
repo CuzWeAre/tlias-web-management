@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Demp {
+public class Dept {
     private Integer id;
     private String name;
-    private LocalDateTime creatTime;
+    private LocalDateTime createTime;
     private LocalDateTime updateTime;
 }
