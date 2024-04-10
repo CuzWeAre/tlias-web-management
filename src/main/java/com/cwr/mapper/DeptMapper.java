@@ -16,7 +16,7 @@ public interface DeptMapper {
     void delete(Integer id);
 
     @Insert("INSERT INTO dept (name,create_time,update_time) VALUES (#{name},now(),now())")
-    void create(Dept dept);
+    void add(Dept dept);
 
     @Select("SELECT * FROM dept WHERE id=#{id}")
     Dept getDeptById(Integer id);

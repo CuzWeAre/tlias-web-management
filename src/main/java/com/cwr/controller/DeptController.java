@@ -4,20 +4,23 @@ import com.cwr.pojo.Dept;
 import com.cwr.pojo.Result;
 import com.cwr.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/depts")
 public class DeptController {
 
-    @Autowired
-    private DeptService deptService;
+    private final DeptService deptService;
+
+    public DeptController(DeptService deptService) {
+        this.deptService = deptService;
+    }
 
     //    @RequestMapping(value = "/depts",method = RequestMethod.GET)
-    @GetMapping("/depts")
+    @GetMapping
     public Result list() {
         log.info("查询全部部门数据");
 
@@ -26,28 +29,28 @@ public class DeptController {
         return Result.success(deptList);
     }
 
-    @GetMapping("/depts/{id}")
+    @GetMapping("/{id}")
     public Result getDeptById(@PathVariable Integer id) {
-        log.info("根据ID查询部门");
+        log.info("根据ID查询部门{}",id);
         Dept dept = deptService.getDeptById(id);
         return Result.success(dept);
     }
 
-    @DeleteMapping("/depts/{id}")
+    @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        log.info("删除部门");
+        log.info("删除部门{}",id);
         deptService.delete(id);
         return Result.success();
     }
 
-    @PostMapping("/depts")
+    @PostMapping
     public Result create(@RequestBody Dept dept) {
         log.info("新建部门");
-        deptService.create(dept);
+        deptService.add(dept);
         return Result.success();
     }
 
-    @PutMapping("/depts")
+    @PutMapping
     public Result update(@RequestBody Dept dept) {
         log.info("更新部门信息");
         deptService.update(dept);
