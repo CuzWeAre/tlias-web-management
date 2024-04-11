@@ -9,4 +9,10 @@ public interface EmpService {
     List<Emp> list(String name, Short gender, LocalDate begin, LocalDate end, Integer page, Integer pageSize);
 
     void deleteEmpsByIds(List<Integer> ids);
+
+    void add(Emp emp);
+
+    Emp findById(Integer id);
+
+    void update(Emp emp);
 }

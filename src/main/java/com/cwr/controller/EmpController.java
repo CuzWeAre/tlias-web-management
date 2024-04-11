@@ -3,6 +3,7 @@ package com.cwr.controller;
 import com.cwr.pojo.Emp;
 import com.cwr.pojo.Result;
 import com.cwr.service.EmpService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +43,23 @@ public class EmpController {
     }
 
     @PostMapping
-    public Result add(@RequestBody Emp emp) {
-        
+    public Result add(@RequestBody @Valid Emp emp) {
+        empService.add(emp);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result findById(@PathVariable Integer id) {
+        Emp emp = empService.findById(id);
+        return Result.success(emp);
+    }
+
+    @PutMapping
+    public Result update(@RequestBody Emp emp) {
+        if (emp.getId() == null || emp.getUsername() == null || emp.getName() == null || emp.getGender() == null) {
+            return Result.error();
+        }
+        empService.update(emp);
         return Result.success();
     }
 }
