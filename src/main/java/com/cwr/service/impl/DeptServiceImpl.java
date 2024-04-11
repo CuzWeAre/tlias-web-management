@@ -3,7 +3,6 @@ package com.cwr.service.impl;
 import com.cwr.mapper.DeptMapper;
 import com.cwr.pojo.Dept;
 import com.cwr.service.DeptService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.List;
 
 public class DeptServiceImpl implements DeptService {
 
-    @Autowired
-    private DeptMapper deptMapper;
+    private final DeptMapper deptMapper;
+
+    public DeptServiceImpl(DeptMapper deptMapper) {
+        this.deptMapper = deptMapper;
+    }
 
     @Override
     public List<Dept> list() {

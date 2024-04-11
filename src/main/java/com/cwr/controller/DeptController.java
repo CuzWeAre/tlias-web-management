@@ -44,7 +44,7 @@ public class DeptController {
     }
 
     @PostMapping
-    public Result create(@RequestBody Dept dept) {
+    public Result add(@RequestBody Dept dept) {
         log.info("新建部门");
         deptService.add(dept);
         return Result.success();
