@@ -1,6 +1,7 @@
 package com.cwr.controller;
 
 import com.cwr.pojo.Emp;
+import com.cwr.pojo.PageBean;
 import com.cwr.pojo.Result;
 import com.cwr.service.EmpService;
 import jakarta.validation.Valid;

@@ -17,4 +17,6 @@ public interface EmpMapper {
     Emp findById(Integer id);
 
     void update(Emp emp);
+
+    Long count();
 }
