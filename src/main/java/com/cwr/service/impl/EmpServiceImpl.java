@@ -2,7 +2,10 @@ package com.cwr.service.impl;
 
 import com.cwr.mapper.EmpMapper;
 import com.cwr.pojo.Emp;
+import com.cwr.pojo.PageBean;
 import com.cwr.service.EmpService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,12 +22,21 @@ public class EmpServiceImpl implements EmpService {
 
 
     @Override
-    public List<Emp> list(String name, Short gender, LocalDate begin, LocalDate end, Integer page, Integer pageSize) {
+    public PageBean page(String name, Short gender, LocalDate begin, LocalDate end, Integer page, Integer pageSize) {
         /*
             page = page == null ? 1 : page;
             pageSize = pageSize == null ? 10 : pageSize;
         */
-        return empMapper.list(name, gender, begin, end, pageSize * (page - 1), pageSize);
+
+        //1.设置分页参数
+        PageHelper.startPage(page, pageSize);
+
+        //2.执行查询
+        List<Emp> empList = empMapper.list(name, gender, begin, end);
+        Page<Emp> empPage = (Page<Emp>) empList;
+
+        //3.封装PageBean对象
+        return new PageBean(empPage.getTotal(),empPage.getResult());
     }
 
     @Override

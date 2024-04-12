@@ -39,7 +39,6 @@
                 AND entrydate BETWEEN #{begin} AND #{end}
             </if>
         </where>
-        LIMIT #{pageSize} OFFSET #{pageOffset}
     </select>
     <select id="findById" resultType="com.cwr.pojo.Emp">
         SELECT id,

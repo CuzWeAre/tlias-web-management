@@ -32,13 +32,13 @@ public class EmpController {
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         log.info("员工列表查询");
-        List<Emp> empList = empService.list(name, gender, begin, end, page, pageSize);
-        return Result.success(empList);
+        PageBean pageBean = empService.page(name, gender, begin, end, page, pageSize);
+        return Result.success(pageBean);
     }
 
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable("ids") List<Integer> ids) {
-        log.info("删除部门 : {}", ids);
+        log.info("删除员工 : {}", ids);
         empService.deleteEmpsByIds(ids);
         return Result.success();
     }
