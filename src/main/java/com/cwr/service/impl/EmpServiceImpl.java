@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Service
 public class EmpServiceImpl implements EmpService {
 
@@ -36,7 +37,7 @@ public class EmpServiceImpl implements EmpService {
         Page<Emp> empPage = (Page<Emp>) empList;
 
         //3.封装PageBean对象
-        return new PageBean(empPage.getTotal(),empPage.getResult());
+        return new PageBean(empPage.getTotal(), empPage.getResult());
     }
 
     @Override
@@ -58,4 +59,17 @@ public class EmpServiceImpl implements EmpService {
     public void update(Emp emp) {
         empMapper.update(emp);
     }
+
+    @Override
+    public boolean checkPassword(Emp emp)  {
+        String password = empMapper.findPasswordByUsername(emp.getUsername());
+        String empPassword = emp.getPassword();
+        if ( empPassword!=null && empPassword.equals(password) ) {
+            return true;
+        }
+        return false;
+    }
 }
+
+
+

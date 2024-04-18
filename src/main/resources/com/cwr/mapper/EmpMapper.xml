@@ -58,6 +58,9 @@
     <select id="count" resultType="java.lang.Long">
         SELECT COUNT(*) FROM emp
     </select>
+    <select id="findPasswordByUsername" resultType="java.lang.String">
+        SELECT password FROM emp WHERE username = #{username}
+    </select>
     <delete id="deleteEmpsByIds" parameterType="java.util.List">
         DELETE FROM emp
         WHERE id IN

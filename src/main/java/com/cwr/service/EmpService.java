@@ -3,6 +3,7 @@ package com.cwr.service;
 import com.cwr.pojo.Emp;
 import com.cwr.pojo.PageBean;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface EmpService {
     Emp findById(Integer id);
 
     void update(Emp emp);
+
+    boolean checkPassword(Emp emp) throws NoSuchAlgorithmException;
 }

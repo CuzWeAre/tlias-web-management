@@ -1,7 +1,7 @@
 package com.cwr.mapper;
 
 import com.cwr.pojo.Emp;
-import com.github.pagehelper.Page;
+import jakarta.validation.constraints.NotNull;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDate;
@@ -20,4 +20,6 @@ public interface EmpMapper {
     void update(Emp emp);
 
     Long count();
+
+    String findPasswordByUsername(@NotNull String username);
 }

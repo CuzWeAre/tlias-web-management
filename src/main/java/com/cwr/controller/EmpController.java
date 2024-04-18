@@ -3,10 +3,11 @@ package com.cwr.controller;
 import com.cwr.pojo.Emp;
 import com.cwr.pojo.PageBean;
 import com.cwr.pojo.Result;
+import com.cwr.pojo.validation.EmpAddGroup;
 import com.cwr.service.EmpService;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public class EmpController {
     }
 
     @GetMapping
-    public Result list(
+    public Result<PageBean> list(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Short gender,
             @RequestParam(required = false) @DateTimeFormat() LocalDate begin,
@@ -37,26 +38,26 @@ public class EmpController {
     }
 
     @DeleteMapping("/{ids}")
-    public Result delete(@PathVariable("ids") List<Integer> ids) {
+    public Result<Object> delete(@PathVariable("ids") List<Integer> ids) {
         log.info("删除员工 : {}", ids);
         empService.deleteEmpsByIds(ids);
         return Result.success();
     }
 
     @PostMapping
-    public Result add(@RequestBody @Valid Emp emp) {
+    public Result<Object> add(@Validated(EmpAddGroup.class) @RequestBody Emp emp) {
         empService.add(emp);
         return Result.success();
     }
 
     @GetMapping("/{id}")
-    public Result findById(@PathVariable Integer id) {
+    public Result<Emp> findById(@PathVariable Integer id) {
         Emp emp = empService.findById(id);
         return Result.success(emp);
     }
 
     @PutMapping
-    public Result update(@RequestBody Emp emp) {
+    public Result<Object> update(@RequestBody Emp emp) {
         if (emp.getId() == null || emp.getUsername() == null || emp.getName() == null || emp.getGender() == null) {
             return Result.error();
         }

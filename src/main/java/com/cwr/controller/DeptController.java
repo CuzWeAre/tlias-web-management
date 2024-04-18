@@ -21,7 +21,7 @@ public class DeptController {
 
     //    @RequestMapping(value = "/depts",method = RequestMethod.GET)
     @GetMapping
-    public Result list() {
+    public Result<List<Dept>> list() {
         log.info("查询全部部门数据");
 
         //调用service查询部门数据
@@ -30,28 +30,28 @@ public class DeptController {
     }
 
     @GetMapping("/{id}")
-    public Result getDeptById(@PathVariable Integer id) {
+    public Result<Dept> getDeptById(@PathVariable Integer id) {
         log.info("根据ID查询部门{}",id);
         Dept dept = deptService.getDeptById(id);
         return Result.success(dept);
     }
 
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Integer id) {
+    public Result<Object> delete(@PathVariable Integer id) {
         log.info("删除部门{}",id);
         deptService.delete(id);
         return Result.success();
     }
 
     @PostMapping
-    public Result add(@RequestBody Dept dept) {
+    public Result<Object> add(@RequestBody Dept dept) {
         log.info("新建部门");
         deptService.add(dept);
         return Result.success();
     }
 
     @PutMapping
-    public Result update(@RequestBody Dept dept) {
+    public Result<Object> update(@RequestBody Dept dept) {
         log.info("更新部门信息");
         deptService.update(dept);
         return Result.success();
